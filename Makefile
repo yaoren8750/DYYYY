@@ -13,7 +13,8 @@ ARCHS = arm64
 #export THEOS_PACKAGE_SCHEME=roothide
 
 # 根据参数选择打包方案
-
+ifeq ($(SCHEME),roothide)
+    export THEOS_PACKAGE_SCHEME = roothide
 else ifeq ($(SCHEME),rootless)
     export THEOS_PACKAGE_SCHEME = rootless
 else
