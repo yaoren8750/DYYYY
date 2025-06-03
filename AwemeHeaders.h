@@ -885,6 +885,9 @@ static CGFloat gStartVal = 0.0;
 - (void)setOnlyTopCornerClips:(BOOL)onlyTop;
 @end
 
+@interface AWELeftSideBarAddChildTransitionObject : NSObject
+@end
+
 @interface AWEButton : UIButton
 @end
 
@@ -1134,7 +1137,6 @@ static CGFloat gStartVal = 0.0;
 @interface AWESettingsTableViewController : AWESettingBaseViewController
 - (id)viewModel;
 - (void)removeAboutSection;
-
 @end
 
 @interface AWEProfileMixCollectionView : UICollectionView
@@ -1142,5 +1144,8 @@ static CGFloat gStartVal = 0.0;
 @end
 
 @interface AFDViewedBottomView : UIView
-@property (nonatomic, strong, readonly) UIView *effectView;
+@property(nonatomic, strong, readonly) UIView *effectView;
+@end
+
+@interface AWEAwemeDetailNaviBarContainerView : UIView
 @end

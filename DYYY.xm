@@ -205,6 +205,19 @@
 
 %end
 
+%hook AWELeftSideBarAddChildTransitionObject
+
+- (void)handleShowSliderPanGesture:(id)gr {
+    if([[NSUserDefaults standardUserDefaults] boolForKey:@"DYYYDisableSidebarGesture"]) {
+		// 禁用侧边栏手势
+		return;
+	}
+	// 如果没有禁用侧边栏手势，则执行原有逻辑
+	%orig(gr);
+}
+
+%end
+
 %hook AWEPlayInteractionUserAvatarElement
 - (void)onFollowViewClicked:(UITapGestureRecognizer *)gesture {
 	if ([[NSUserDefaults standardUserDefaults] boolForKey:@"DYYYfollowTips"]) {
@@ -663,6 +676,52 @@
 	}
 
 	return originalView;
+}
+
+%end
+
+%hook AWECommentInputViewController
+
+- (UIView *)view {
+	UIView *originalView = %orig;
+
+	NSString *transparentValue = [[NSUserDefaults standardUserDefaults] stringForKey:@"DYYYGlobalTransparency"];
+	if (transparentValue.length > 0) {
+		CGFloat alphaValue = transparentValue.floatValue;
+		if (alphaValue >= 0.0 && alphaValue <= 1.0) {
+			for (UIView *subview in originalView.subviews) {
+				if (subview.tag != DYYY_IGNORE_GLOBAL_ALPHA_TAG) {
+					if (subview.alpha > 0) {
+						subview.alpha = alphaValue;
+					}
+				}
+			}
+		}
+	}
+
+	return originalView;
+}
+
+%end
+
+%hook AWEAwemeDetailNaviBarContainerView
+
+- (void)layoutSubviews {
+    %orig;
+    
+    NSString *transparentValue = [[NSUserDefaults standardUserDefaults] stringForKey:@"DYYYGlobalTransparency"];
+    if (transparentValue.length > 0) {
+        CGFloat alphaValue = transparentValue.floatValue;
+        if (alphaValue >= 0.0 && alphaValue <= 1.0) {
+            for (UIView *subview in self.subviews) {
+                if (subview.tag != DYYY_IGNORE_GLOBAL_ALPHA_TAG) {
+                    if (subview.alpha > 0) {
+                        subview.alpha = alphaValue;
+                    }
+                }
+            }
+        }
+    }
 }
 
 %end
@@ -3269,6 +3328,20 @@ static AWEIMReusableCommonCell *currentCell;
 		self.hidden = YES;
 		return;
 	}
+
+    NSString *transparentValue = [[NSUserDefaults standardUserDefaults] stringForKey:@"DYYYGlobalTransparency"];
+    if (transparentValue.length > 0) {
+        CGFloat alphaValue = transparentValue.floatValue;
+        if (alphaValue >= 0.0 && alphaValue <= 1.0) {
+            for (UIView *subview in self.subviews) {
+                if (subview.tag != DYYY_IGNORE_GLOBAL_ALPHA_TAG) {
+                    if (subview.alpha > 0) {
+                        subview.alpha = alphaValue;
+                    }
+                }
+            }
+        }
+    }
 	%orig;
 }
 
