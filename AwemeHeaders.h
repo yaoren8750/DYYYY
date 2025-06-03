@@ -1035,25 +1035,6 @@ static CGFloat gStartVal = 0.0;
 - (void)setResolutionWithIndex:(NSInteger)index isManual:(BOOL)manual beginChange:(void (^)(void))beginChangeBlock completion:(void (^)(void))completionBlock;
 @end
 
-// 视频播放控制处理器
-@interface AWEPlayerPlayControlHandler : NSObject
-@property(nonatomic, strong) AVAudioUnitEQ *audioEQ;
-@property(nonatomic, strong) AVAudioUnitReverb *reverb;
-@property(nonatomic, assign) BOOL noiseFilterEnabled;
-- (void)setupNoiseFilter;
-- (void)addNoiseFilterButton;
-- (void)toggleNoiseFilter;
-- (void)setupAVPlayerItem:(AVPlayerItem *)item;
-- (id)player;
-@end
-
-// 视频控制视图
-@interface AWEFeedVideoControlView : UIView
-- (void)handleVideoQualityLongPress:(UILongPressGestureRecognizer *)gesture;
-@end
-
-@interface AWEMixVideoPanelMoreView : UIView
-@end
 @interface DUXPopover : UIView
 @end
 
@@ -1148,4 +1129,9 @@ static CGFloat gStartVal = 0.0;
 @end
 
 @interface AWEAwemeDetailNaviBarContainerView : UIView
+@end
+
+@interface AWEVideoBSModel : NSObject
+@property (nonatomic) NSNumber *bitrate;
+@property (nonatomic) AWEURLModel *playAddr;
 @end
