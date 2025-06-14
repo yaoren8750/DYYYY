@@ -5127,6 +5127,24 @@ static void DYYYAddCustomViewToParent(UIView *parentView, float transparency) {
 	%orig(frame);
 }
 
+%end%hook AWECommentInputViewController
+
+- (UIView *)view {
+    UIView *originalView = %orig;
+
+    if (!originalView) return nil;
+    
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"DYYYisEnableFullScreen"]) {    
+        for (UIView *subview in originalView.subviews) {
+            if ([subview isKindOfClass:[UIView class]]) {
+                [subview setBackgroundColor:[UIColor clearColor]];
+            }
+        }    
+    }
+    
+    return originalView;
+}
+
 %end
 
 %hook AWEPlayInteractionViewController
